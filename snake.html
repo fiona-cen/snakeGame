@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>snakeGame</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.map{
+			width: 800px;
+			height: 800px;
+			background: #ccc;
+			margin:10px auto;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div class="map"></div>
+<script type="text/javascript">
+	(function () {
+		var elemetns=[]
+		function Food(width,height,color) {
+			this.width=width||20;
+			this.height=height||20;
+			this.background=color||"green";
+			// this.element=document.createElement("div");
+		}
+		Food.prototype.init = function(map) {
+			var div=this.element;
+			// var div=document.createElement("div")
+			div.style.width=this.width+"px";
+			div.style.height=this.height+"px";
+			div.style.position="absolute";
+			div.style.backgroundColor=this.background;
+			this.refresh();
+			div.style.left=this.x+"px";
+			div.style.top=this.y+"px";
+			map.appendChild(div);
+			elemetns.push(div);
+
+
+		};
+
+
+
+		// function remove(){
+		// 	for (var i = elemetns.length - 1; i >= 0; i--) {
+		// 		elemetns[i].parentNode.removeChild(elemetns[i]);
+		// 		elemetns.splice(i,1)
+		// 	}
+		// }
+
+		Food.prototype.refresh = function() {
+			// body...
+			this.x=Math.floor(Math.random()*(800/this.width))*this.width;
+			this.y=Math.floor(Math.random()*(800/this.height))*this.height;
+			console.log(this.x)
+		};
+		Food.prototype.remove = function() {
+			// body...
+		};
+		window.Food=Food;
+	})();
+	(function(){
+		var elemetns=[];
+		function Snake(width,height,direction){
+			this.width=width||20;
+			this.height=height||20;
+			this.body=[
+				{x:5,y:2,color:"orange"},
+				{x:4,y:2,color:"green"},
+				{x:3,y:2,color:"green"}
+			];
+			this.direction=direction||"right";
+		}
+		Snake.prototype.init=function(map){
+			for(var i=0;i<this.body.length;i++){
+				var obj=this.body[i];
+				var div=document.createElement("div");
+				map.appendChild(div);
+				div.style.position="absolute";
+				div.style.left=obj.x*this.width+"px";
+				div.style.top=obj.y*this.height+"px";
+				div.style.background=this.body[i].color;
+				div.style.width=this.width+"px";
+				div.style.height=this.height+"px";
+
+				elemetns.push(div);
+			}
+			// for (var i = elemetns.length - 1; i >= 0; i--) {
+			// 	map.apprendChild(elemetns[i]);
+			// }
+		}
+
+
+
+		window.Snake=Snake;
+	}());
+
+	var map=document.querySelector(".map");
+	var food=new Food();
+	food.init(map);
+	food.init(map);
+
+	var snape=new Snake();
+	snape.init(map)
+
+</script>
+</body>
+</html>
